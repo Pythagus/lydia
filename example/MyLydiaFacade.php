@@ -29,14 +29,4 @@ class MyLydiaFacade extends Lydia {
 		return 'https://www.google.com/' . $url ;
 	}
 
-	/**
-	 * Save the payment data to retrieve them
-	 * to check the transaction state.
-	 *
-	 * @param array $data
-	 */
-	public function savePaymentData(array $data) {
-		//
-	}
-
 }

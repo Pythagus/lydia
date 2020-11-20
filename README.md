@@ -58,10 +58,14 @@ Lydia to redirect the user. You also need to define **amount** and **recipient**
 ```php
 $request = new PaymentRequest() ;
 $request->setFinishCallback('my/route') ;
-return $request->execute([
+$data = $request->execute([
 	'amount'    => 5,
 	'recipient' => 'test@test.com'
 ]) ;
+
+// Save your data.
+
+return $request->redirect() ;
 ```
 
 The ```execute()``` method will redirect the user to the Lydia's page. After payment, the user will be redirected to ```my/route```.

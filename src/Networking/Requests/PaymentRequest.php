@@ -10,9 +10,18 @@ use Pythagus\Lydia\Contracts\LydiaException;
  * Class PaymentRequest
  * @package Pythagus\Lydia\Networking\Requests
  *
+ * @property string url
+ *
  * @author: Damien MOLINA
  */
 class PaymentRequest extends LydiaRequest {
+
+	/**
+	 * Redirection url.
+	 *
+	 * @var string
+	 */
+	protected $url ;
 
 	/**
 	 * Execute the request.
@@ -43,14 +52,12 @@ class PaymentRequest extends LydiaRequest {
 		 *   handle if they already have an account or show the a credit card payment form.
 		 * - order_ref: Only if an order_ref was specified.
 		 */
-		$this->lydia()->savePaymentData([
+		return [
 			'state'        => Lydia::WAITING_PAYMENT,
 			'url'          => $url = $result->mobile_url,
 			'request_id'   => $result->request_id,
 			'request_uuid' => $result->request_uuid,
-		]) ;
-
-		return $this->redirect($url ?? null) ;
+		] ;
 	}
 
 	/**
@@ -110,16 +117,15 @@ class PaymentRequest extends LydiaRequest {
 	/**
 	 * Redirect the client to the Lydia website.
 	 *
-	 * @param string|null $url
 	 * @return mixed
 	 * @throws LydiaException
 	 */
-	private function redirect(string $url = null) {
-		if(is_null($url)) {
+	public function redirect() {
+		if(is_null($this->url)) {
 			throw new LydiaException("Impossible to redirect to Lydia's server") ;
 		}
 
-		return $this->lydia()->redirect($url) ;
+		return $this->lydia()->redirect($this->url) ;
 	}
 
 	/**

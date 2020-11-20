@@ -60,16 +60,6 @@ class Lydia implements LydiaState {
 	}
 
 	/**
-	 * Save the payment data to retrieve them
-	 * to check the transaction state.
-	 *
-	 * @param array $data
-	 */
-	public function savePaymentData(array $data) {
-		//
-	}
-
-	/**
 	 * Redirect the user to the given route.
 	 *
 	 * @param string $route
