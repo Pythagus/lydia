@@ -1,0 +1,27 @@
+{
+	"name": "pythagus/lydia",
+	"description": "Oriented-Object Package to use Lydia payment way in PHP",
+	"license": "MIT",
+	"type": "package",
+	"authors": [
+		{
+			"name": "Damien Molina",
+			"email": "damis01800@gmail.com"
+		}
+	],
+	"require": {
+		"php": "^7.3|^8.0",
+		"ext-curl": "*",
+		"ext-json": "*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Pythagus\\Lydia\\": "src/"
+		}
+	},
+	"config": {
+		"sort-packages": true
+	},
+	"minimum-stability": "stable",
+	"prefer-stable": true
+}
