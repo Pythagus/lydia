@@ -52,9 +52,11 @@ class PaymentRequest extends LydiaRequest {
 		 *   handle if they already have an account or show the a credit card payment form.
 		 * - order_ref: Only if an order_ref was specified.
 		 */
+		$this->url = $result->url ;
+
 		return [
 			'state'        => Lydia::WAITING_PAYMENT,
-			'url'          => $url = $result->mobile_url,
+			'url'          => $this->url,
 			'request_id'   => $result->request_id,
 			'request_uuid' => $result->request_uuid,
 		] ;
