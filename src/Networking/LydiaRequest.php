@@ -2,7 +2,6 @@
 
 namespace Pythagus\Lydia\Networking;
 
-use Throwable;
 use Pythagus\Lydia\Lydia;
 use Pythagus\Lydia\Traits\HasParameters;
 use Pythagus\Lydia\Contracts\LydiaException;
@@ -111,20 +110,6 @@ abstract class LydiaRequest {
 		return md5(
 			http_build_query($data) . '&' . $this->getLydiaPrivateToken()
 		) ;
-	}
-
-	/**
-	 * We are trying to take the transaction_identifier
-	 * token in the GET Lydia's response.
-	 *
-	 * @return string|null
-	 */
-	protected function getTransactionIdentifier() {
-		try {
-			return $_GET['transaction'] ?? null ;
-		} catch(Throwable $ignored) {
-			return null ;
-		}
 	}
 
 	/**
