@@ -55,7 +55,7 @@ class RefundRequest extends LydiaRequest {
 		 * with keys:
 		 * - error: Set to 0 if there is no error.
 		 */
-		return $result->error ;
+		return $result['error'] ;
 	}
 
 	/**

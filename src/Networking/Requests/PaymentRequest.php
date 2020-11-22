@@ -2,9 +2,11 @@
 
 namespace Pythagus\Lydia\Networking\Requests;
 
+use Exception;
 use Pythagus\Lydia\Lydia;
 use Pythagus\Lydia\Networking\LydiaRequest;
 use Pythagus\Lydia\Contracts\LydiaException;
+use Pythagus\Lydia\Exceptions\InvalidLydiaResponseException;
 
 /**
  * Class PaymentRequest
@@ -39,7 +41,9 @@ class PaymentRequest extends LydiaRequest {
 		 *
 		 * @throws LydiaException
 		 */
-		$this->lydiaResponseContains($result, 'error', true) ;
+		$this->lydiaResponseContains($result, [
+			'error', 'mobile_url', 'request_uuid', 'request_id'
+		], true) ;
 
 		/*
 		 * Here, the response should be a Std object
@@ -52,14 +56,18 @@ class PaymentRequest extends LydiaRequest {
 		 *   handle if they already have an account or show the a credit card payment form.
 		 * - order_ref: Only if an order_ref was specified.
 		 */
-		$this->url = $result->url ;
+		$this->url = $result['mobile_url'] ;
 
-		return [
-			'state'        => Lydia::WAITING_PAYMENT,
-			'url'          => $this->url,
-			'request_id'   => $result->request_id,
-			'request_uuid' => $result->request_uuid,
-		] ;
+		try {
+			return [
+				'state'        => Lydia::WAITING_PAYMENT,
+				'url'          => $this->url,
+				'request_id'   => $result['request_id'],
+				'request_uuid' => $result['request_uuid'],
+			] ;
+		} catch(Exception $exception) {
+			throw new InvalidLydiaResponseException($exception->getMessage(), $result) ;
+		}
 	}
 
 	/**
@@ -155,5 +163,5 @@ class PaymentRequest extends LydiaRequest {
 	private function formatCallbackUrl(string $url) {
 		return $this->lydia()->formatCallbackUrl($url) ;
 	}
-	
+
 }

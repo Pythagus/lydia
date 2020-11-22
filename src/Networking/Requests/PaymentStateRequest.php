@@ -55,7 +55,7 @@ class PaymentStateRequest extends LydiaRequest {
 		 * - state: Status of the remote request. See LydiaState contract interface.
 		 * - used_ease_of_payment: Specify if the user used ease of payment or not.
 		 */
-		return intval($result->state) ;
+		return intval($result['state']) ;
 	}
 
 	/**

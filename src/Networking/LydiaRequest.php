@@ -2,6 +2,7 @@
 
 namespace Pythagus\Lydia\Networking;
 
+use Pythagus\Lydia\Exceptions\InvalidLydiaResponseException;
 use Pythagus\Lydia\Lydia;
 use Pythagus\Lydia\Traits\HasParameters;
 use Pythagus\Lydia\Contracts\LydiaException;
@@ -69,23 +70,33 @@ abstract class LydiaRequest {
 	 * Check whether the Lydia response has the
 	 * expected format.
 	 *
-	 * @param $response
-	 * @param string $key
+	 * @param array $response
+	 * @param $keys
 	 * @param bool $shouldHave
 	 * @throws LydiaException
 	 */
-	protected function lydiaResponseContains($response, string $key, bool $shouldHave) {
-		$has = isset($response->$key) ;
+	protected function lydiaResponseContains(array $response, $keys, bool $shouldHave) {
+		if(! is_array($keys)) {
+			$keys = [$keys] ;
+		}
 
 		/*
-		 * There is an error if:
-		 * -> The response should have the $key field and has not one.
-		 * -> The response should not have the $key field and has one.
+		 * We test every keys contained in
+		 * the $keys variable.
 		 */
-		if($shouldHave xor $has) {
-			throw new LydiaException(
-				"Lydia's response " . ($shouldHave ? "should" : "shouldn't") . " have $key attribute"
-			) ;
+		foreach($keys as $key) {
+			$has = isset($response[$key]) ;
+
+			/*
+			 * There is an error if:
+			 * -> The response should have the $key field and has not one.
+			 * -> The response should not have the $key field and has one.
+			 */
+			if($shouldHave xor $has) {
+				throw new InvalidLydiaResponseException(
+					"Lydia's response " . ($shouldHave ? "should" : "shouldn't") . " have $key attribute", $response
+				) ;
+			}
 		}
 	}
 
@@ -122,7 +133,7 @@ abstract class LydiaRequest {
 	protected function requestServer(string $route, array $params = null) {
 		return $this->externalRequest(
 			$this->getLydiaURL() . $this->getConfig('url.'.$route),
-			$params ?? $this->parameters ?? null
+			$params ?? $this->parameters ?? null, '', true
 		) ;
 	}
 
