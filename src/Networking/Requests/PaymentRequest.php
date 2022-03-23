@@ -6,6 +6,7 @@ use Exception;
 use Pythagus\Lydia\Lydia;
 use Pythagus\Lydia\Networking\LydiaRequest;
 use Pythagus\Lydia\Contracts\LydiaException;
+use Pythagus\Lydia\Exceptions\LydiaErrorResponseException;
 use Pythagus\Lydia\Exceptions\InvalidLydiaResponseException;
 
 /**
@@ -33,6 +34,13 @@ class PaymentRequest extends LydiaRequest {
 	 */
 	protected function run() {
 		$result = $this->requestServer('do') ;
+
+		// If there is an error, then throw an exception.
+		if($result['error'] != 0) {
+			throw new LydiaErrorResponseException(
+				intval($result['error']), $result['message']
+			) ;
+		}
 
 		/**
 		 * This method prevents to the Lydia problems that
