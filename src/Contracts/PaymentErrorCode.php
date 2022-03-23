@@ -6,12 +6,12 @@ namespace Pythagus\Lydia\Contracts;
  * These error codes were generated from logs after
  * Lydia usages. This is not an exhaustive list.
  * 
- * Class LydiaErrorCode
+ * Class PaymentErrorCode
  * @package Pythagus\Lydia\Contracts
  *
  * @author: Damien MOLINA
  */
-interface LydiaErrorCode {
+interface PaymentErrorCode {
 
     /**
      * Invalid email address given (recipient).
