@@ -14,45 +14,44 @@ use Pythagus\Lydia\Contracts\LydiaException;
  */
 trait HasConfig {
 
-	/**
-	 * Lydia's configurations
-	 *
-	 * @var array
-	 */
-	private $configs = [] ;
+    /**
+     * Lydia's configurations
+     *
+     * @var array
+     */
+    private $configs = [] ;
 
-	/**
-	 * Get the config value identified by
-	 * the given key.
-	 *
-	 * @param string $key
-	 * @param null $default
-	 * @return mixed|null
-	 */
-	public function config(string $key, $default = null) {
-		$array = $this->configs ;
+    /**
+     * Get the config value identified by
+     * the given key.
+     *
+     * @param string $key
+     * @param null $default
+     * @return mixed|null
+     */
+    public function config(string $key, $default = null) {
+        $array = $this->configs ;
 
-		if(count($array) <= 0) {
-			throw new LydiaException("No configs are loaded") ;
-		}
+        if(count($array) <= 0) {
+            throw new LydiaException("No configs are loaded") ;
+        }
 
-		if(array_key_exists($key, $array)) {
-			return $array[$key] ;
-		}
+        if(array_key_exists($key, $array)) {
+            return $array[$key] ;
+        }
 
-		if(strpos($key, '.') === false) {
-			return $array[$key] ?? $default ;
-		}
+        if(strpos($key, '.') === false) {
+            return $array[$key] ?? $default ;
+        }
 
-		foreach(explode('.', $key) as $segment) {
-			if(array_key_exists($segment, $array)) {
-				$array = $array[$segment] ;
-			} else {
-				return $default ;
-			}
-		}
+        foreach(explode('.', $key) as $segment) {
+            if(array_key_exists($segment, $array)) {
+                $array = $array[$segment] ;
+            } else {
+                return $default ;
+            }
+        }
 
-		return $array ;
-	}
-
+        return $array ;
+    }
 }

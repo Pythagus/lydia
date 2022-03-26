@@ -14,15 +14,15 @@ use Pythagus\Lydia\Contracts\LydiaException;
  */
 class InvalidLydiaResponseException extends LydiaException {
 
-	/**
-	 * Make a new InvalidLydiaResponse exception.
-	 *
-	 * @param string $message : original exception message.
-	 * @param array $response
-	 */
-	public function __construct(string $message, array $response) {
-		parent::__construct(
-			$message . '(response : ' . json_encode($response) . ')'
-		) ;
-	}
+    /**
+     * Make a new InvalidLydiaResponse exception.
+     *
+     * @param string $message : original exception message.
+     * @param array $response
+     */
+    public function __construct(string $message, array $response) {
+        parent::__construct(
+            $message . '(response : ' . json_encode($response) . ')'
+        ) ;
+    }
 }

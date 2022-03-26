@@ -13,15 +13,14 @@ use Throwable;
  */
 class LydiaException extends Exception {
 
-	/**
-	 * @param string $message
-	 * @param int $code
-	 * @param Throwable|null $previous
-	 */
-	public function __construct($message = "", $code = 0, Throwable $previous = null) {
-		parent::__construct(
-			"Lydia : " . $message, $code, $previous
-		) ;
-	}
-
+    /**
+     * @param string $message
+     * @param int $code
+     * @param Throwable|null $previous
+     */
+    public function __construct($message = "", $code = 0, Throwable $previous = null) {
+        parent::__construct(
+            "Lydia : " . $message, $code, $previous
+        ) ;
+    }
 }

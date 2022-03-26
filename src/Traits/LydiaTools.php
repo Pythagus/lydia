@@ -12,17 +12,17 @@ use Throwable;
  */
 trait LydiaTools {
 
-	/**
-	 * We are trying to take the transaction_identifier
-	 * token in the GET Lydia's response.
-	 *
-	 * @return string|null
-	 */
-	public static function getTransactionIdentifier() {
-		try {
-			return $_GET['transaction'] ?? null ;
-		} catch(Throwable $ignored) {
-			return null ;
-		}
-	}
+    /**
+     * We are trying to take the transaction_identifier
+     * token in the GET Lydia's response.
+     *
+     * @return string|null
+     */
+    public static function getTransactionIdentifier() {
+        try {
+            return $_GET['transaction'] ?? null ;
+        } catch(Throwable $ignored) {
+            return null ;
+        }
+    }
 }
