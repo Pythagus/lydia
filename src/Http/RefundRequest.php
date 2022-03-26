@@ -1,13 +1,12 @@
 <?php
 
-namespace Pythagus\Lydia\Networking\Requests;
+namespace Pythagus\Lydia\Http;
 
-use Pythagus\Lydia\Networking\LydiaRequest;
 use Pythagus\Lydia\Contracts\LydiaException;
 
 /**
  * Class RefundRequest
- * @package Pythagus\Lydia\Networking\Requests
+ * @package Pythagus\Lydia\Http
  *
  * @property string identifier
  *
@@ -82,5 +81,4 @@ class RefundRequest extends LydiaRequest {
 		$this->setParameter('signature', $this->generateSignature($this->parameters)) ;
 		$this->setParameter('vendor_token', $this->getLydiaVendorToken()) ;
 	}
-
 }

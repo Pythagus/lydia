@@ -1,17 +1,16 @@
 <?php
 
-namespace Pythagus\Lydia\Networking\Requests;
+namespace Pythagus\Lydia\Http;
 
 use Exception;
 use Pythagus\Lydia\Lydia;
-use Pythagus\Lydia\Networking\LydiaRequest;
 use Pythagus\Lydia\Contracts\LydiaException;
 use Pythagus\Lydia\Exceptions\LydiaErrorResponseException;
 use Pythagus\Lydia\Exceptions\InvalidLydiaResponseException;
 
 /**
  * Class PaymentRequest
- * @package Pythagus\Lydia\Networking\Requests
+ * @package Pythagus\Lydia\Http
  *
  * @property string url
  *
@@ -171,5 +170,4 @@ class PaymentRequest extends LydiaRequest {
 	private function formatCallbackUrl(string $url) {
 		return $this->lydia()->formatCallbackUrl($url) ;
 	}
-
 }

@@ -1,13 +1,12 @@
 <?php
 
-namespace Pythagus\Lydia\Networking\Requests;
+namespace Pythagus\Lydia\Http;
 
-use Pythagus\Lydia\Networking\LydiaRequest;
 use Pythagus\Lydia\Contracts\LydiaException;
 
 /**
  * Class PaymentStateRequest
- * @package Pythagus\Lydia\Networking\Requests
+ * @package Pythagus\Lydia\Http
  *
  * @property string requestUUID
  *
@@ -70,5 +69,4 @@ class PaymentStateRequest extends LydiaRequest {
 		// UUID of the remote payment request.
 		$this->setParameter('request_uuid', $this->requestUUID) ;
 	}
-
 }

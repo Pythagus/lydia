@@ -1,22 +1,23 @@
 <?php
 
-namespace Pythagus\Lydia\Networking;
+namespace Pythagus\Lydia\Http;
 
-use Pythagus\Lydia\Exceptions\InvalidLydiaResponseException;
+use anlutro\cURL\cURL;
 use Pythagus\Lydia\Lydia;
 use Pythagus\Lydia\Traits\HasParameters;
 use Pythagus\Lydia\Contracts\LydiaException;
 use Pythagus\Lydia\Traits\HasLydiaProperties;
+use Pythagus\Lydia\Exceptions\InvalidLydiaResponseException;
 
 /**
  * Class LydiaRequest
- * @package Pythagus\Lydia\Networking
+ * @package Pythagus\Lydia\Http
  *
  * @author: Damien MOLINA
  */
 abstract class LydiaRequest {
 
-	use HasParameters, HasLydiaProperties, ExternalRequest ;
+	use HasParameters, HasLydiaProperties ;
 
 	/**
 	 * Execute the request.
@@ -127,14 +128,13 @@ abstract class LydiaRequest {
 	 * Make a request server call.
 	 *
 	 * @param string $route : config key (lydia.url.$key) in lydia.php config file.
-	 * @param array|null $params
-	 * @return mixed
+	 * @return array
 	 */
-	protected function requestServer(string $route, array $params = null) {
-		return $this->externalRequest(
-			$this->getLydiaURL() . $this->getConfig('url.'.$route),
-			$params ?? $this->parameters ?? null, '', true
+	protected function requestServer(string $route) {
+		$response = (new cURL())->post(
+			$this->getLydiaURL() . $this->getConfig('url.' . $route), $this->parameters
 		) ;
-	}
 
+		return json_decode($response->getBody(), true) ;
+	}
 }
