@@ -2,11 +2,9 @@
 
 namespace Pythagus\Lydia\Http;
 
-use Exception;
 use Pythagus\Lydia\Lydia;
 use Pythagus\Lydia\Contracts\LydiaException;
 use Pythagus\Lydia\Exceptions\LydiaErrorResponseException;
-use Pythagus\Lydia\Exceptions\InvalidLydiaResponseException;
 
 /**
  * Class PaymentRequest
@@ -65,16 +63,12 @@ class PaymentRequest extends LydiaRequest {
 		 */
 		$this->url = $result['mobile_url'] ;
 
-		try {
-			return [
-				'state'        => Lydia::WAITING_PAYMENT,
-				'url'          => $this->url,
-				'request_id'   => $result['request_id'],
-				'request_uuid' => $result['request_uuid'],
-			] ;
-		} catch(Exception $exception) {
-			throw new InvalidLydiaResponseException($exception->getMessage(), $result) ;
-		}
+		return [
+			'state'        => Lydia::WAITING_PAYMENT,
+			'url'          => $this->url,
+			'request_id'   => $result['request_id'],
+			'request_uuid' => $result['request_uuid'],
+		] ;
 	}
 
 	/**

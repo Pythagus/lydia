@@ -18,12 +18,11 @@ trait LydiaTools {
 	 *
 	 * @return string|null
 	 */
-	protected function getTransactionIdentifier() {
+	public static function getTransactionIdentifier() {
 		try {
 			return $_GET['transaction'] ?? null ;
 		} catch(Throwable $ignored) {
 			return null ;
 		}
 	}
-
 }
