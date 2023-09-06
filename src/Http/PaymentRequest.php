@@ -109,7 +109,7 @@ class PaymentRequest extends LydiaRequest {
          * the user to a classic credit card payment form. 'auto' either 'lydia' or 'cb' depending
          * on whether or not a lydia account is associated with this mobile number
          */
-        $this->setParameter('payment_method', 'cb') ;
+        $this->setParameter('payment_method', 'auto') ;
 
         // the payer of the payment request by SMS
         $this->setParameter('notify', 'no') ;
